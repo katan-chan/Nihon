@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日本語 - Học tiếng Nhật</title>
+    <meta name="description" content="Ứng dụng học bảng chữ cái tiếng Nhật - Hiragana và Katakana">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">🌸</span>
+                <h1>Nihon<span class="logo-sub">日本語</span></h1>
+            </div>
+            <nav class="nav-tabs">
+                <button class="nav-tab active" data-tab="characters">
+                    <span class="tab-icon">あ</span>
+                    <span class="tab-text">Chữ cái</span>
+                </button>
+                <button class="nav-tab" data-tab="vocabulary">
+                    <span class="tab-icon">📚</span>
+                    <span class="tab-text">Từ vựng</span>
+                </button>
+                <button class="nav-tab" data-tab="practice">
+                    <span class="tab-icon">✨</span>
+                    <span class="tab-text">Luyện tập</span>
+                </button>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Characters Tab -->
+            <section id="characters-tab" class="tab-content active">
+                <div class="section-header">
+                    <h2>Bảng chữ cái</h2>
+                    <div class="header-controls">
+                        <!-- Subtabs -->
+                        <div class="subtab-toggle">
+                            <button class="subtab-btn active" data-subtab="basic">
+                                Cơ bản
+                            </button>
+                            <button class="subtab-btn" data-subtab="yoon">
+                                Yōon
+                            </button>
+                        </div>
+                        <!-- Alphabet toggle -->
+                        <div class="alphabet-toggle">
+                            <button class="toggle-btn active" data-alphabet="hiragana">
+                                ひらがな
+                            </button>
+                            <button class="toggle-btn" data-alphabet="katakana">
+                                カタカナ
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="character-grid-wrapper">
+                    <div class="character-grid" id="character-grid">
+                        <!-- Characters will be inserted by JS -->
+                    </div>
+                </div>
+
+                <!-- Character Detail Modal -->
+                <div class="modal" id="character-modal">
+                    <div class="modal-content">
+                        <button class="modal-close">&times;</button>
+                        <div class="modal-char" id="modal-char">あ</div>
+                        <div class="modal-romaji" id="modal-romaji">a</div>
+                        <div class="modal-row" id="modal-row">Hàng nguyên âm</div>
+                        <div class="modal-examples" id="modal-examples">
+                            <!-- Example words -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Vocabulary Tab -->
+            <section id="vocabulary-tab" class="tab-content">
+                <div class="section-header">
+                    <h2>Từ vựng</h2>
+                    <div class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="vocab-search" placeholder="Tìm từ vựng...">
+                    </div>
+                </div>
+
+                <div class="vocab-categories" id="vocab-categories">
+                    <button class="category-btn active" data-category="all">Tất cả</button>
+                    <button class="category-btn" data-category="pronoun">Đại từ</button>
+                    <button class="category-btn" data-category="noun">Danh từ</button>
+                    <button class="category-btn" data-category="verb">Động từ</button>
+                    <button class="category-btn" data-category="adjective">Tính từ</button>
+                    <button class="category-btn" data-category="phrase">Cụm từ</button>
+                </div>
+
+                <div class="vocab-list" id="vocab-list">
+                    <!-- Vocabulary items will be inserted by JS -->
+                </div>
+            </section>
+
+            <!-- Practice Tab -->
+            <section id="practice-tab" class="tab-content">
+                <div class="section-header">
+                    <h2>Luyện tập</h2>
+                </div>
+
+                <!-- Practice Mode Selection -->
+                <div class="practice-modes" id="practice-modes">
+                    <div class="practice-card" data-mode="char-to-romaji">
+                        <div class="practice-icon">あ → a</div>
+                        <h3>Nhận diện chữ</h3>
+                        <p>Xem chữ cái, chọn cách đọc đúng</p>
+                    </div>
+                    <div class="practice-card" data-mode="romaji-to-char">
+                        <div class="practice-icon">a → あ</div>
+                        <h3>Tìm chữ cái</h3>
+                        <p>Xem cách đọc, chọn chữ cái đúng</p>
+                    </div>
+                    <div class="practice-card" data-mode="reading">
+                        <div class="practice-icon">📖</div>
+                        <h3>Đọc hiểu</h3>
+                        <p>Đọc câu tiếng Nhật và dịch nghĩa</p>
+                    </div>
+                </div>
+
+                <!-- Quiz Area -->
+                <div class="quiz-area hidden" id="quiz-area">
+                    <div class="quiz-header">
+                        <div class="quiz-progress">
+                            <span id="quiz-current">1</span>/<span id="quiz-total">10</span>
+                        </div>
+                        <div class="quiz-score">
+                            <span class="score-label">Điểm:</span>
+                            <span id="quiz-score">0</span>
+                        </div>
+                        <button class="quit-btn" id="quit-quiz">✕ Thoát</button>
+                    </div>
+
+                    <div class="quiz-question" id="quiz-question">
+                        <div class="question-char" id="question-char">あ</div>
+                    </div>
+
+                    <div class="quiz-options" id="quiz-options">
+                        <!-- Options will be inserted by JS -->
+                    </div>
+
+                    <div class="quiz-feedback hidden" id="quiz-feedback">
+                        <div class="feedback-icon"></div>
+                        <div class="feedback-text"></div>
+                    </div>
+                </div>
+
+                <!-- Quiz Result -->
+                <div class="quiz-result hidden" id="quiz-result">
+                    <div class="result-icon">🎉</div>
+                    <h3>Hoàn thành!</h3>
+                    <div class="result-score">
+                        <span id="result-correct">0</span>/<span id="result-total">10</span>
+                    </div>
+                    <p class="result-message" id="result-message">Tuyệt vời!</p>
+                    <button class="btn-primary" id="retry-quiz">Làm lại</button>
+                    <button class="btn-secondary" id="back-to-modes">Chọn chế độ khác</button>
+                </div>
+            </section>
+        </main>
+
+    </div>
+
+    <!-- Floating decorations -->
+    <div class="floating-decor">
+        <span class="decor-item">🌸</span>
+        <span class="decor-item">✿</span>
+        <span class="decor-item">🍡</span>
+        <span class="decor-item">⭐</span>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/quiz.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
